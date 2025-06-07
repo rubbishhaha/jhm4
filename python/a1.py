@@ -1,3 +1,11 @@
-import random
-for i in range(int(input("number:"))):
-    print(f"('S00{i}','CHAN','{random.choice(["M","F"])}','{random.randint(2000,2025)}-0{random.randint(1,9)}-{random.randint(10,28)}','{random.randint(1,6)}{random.choice(["A","B","C","D"])}'),")
+import random, time
+a = 0
+b = 0
+for i in range(100):
+    time.sleep(0.1)
+    if random.choice(['lefu','hkbu']) == 'lefu':
+        a += 1
+        print("a: ", a)
+    else:
+        b += 1
+        print("b: ", b)
