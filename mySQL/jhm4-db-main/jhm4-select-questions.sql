@@ -28,7 +28,6 @@ ORDER BY birthday DESC LIMIT 3;
 -- 你的答案：
 SELECT COUNT(*) FROM `Student`;
 
-
 -- 6. 分組統計：統計每個年級有多少個班級
 -- 你的答案：
 SELECT grade, count(class_id) from `Class` GROUP BY grade;
@@ -76,21 +75,31 @@ ON ct.class_id = c.class_id ORDER BY t.teacher_id;
 
 -- 13. 子查詢：查詢選修課程數量最多的學生姓名
 -- 你的答案：
-SELECT student_id as asdf FROM `Student_Course` 
-SELECT * FROM s
+DROP VIEW course_count;
+CREATE VIEW course_count AS
+SELECT s.name,COUNT(sc.course_id) from `Student` s JOIN `Student_Course` sc ON sc.student_id = s.student_id GROUP BY s.name;
+SELECT name,`COUNT(sc.course_id)` as number_of_course FROM course_count WHERE `count(sc.course_id)` = (SELECT MAX(`count(sc.course_id)`) FROM course_count);
 
 
 -- 14. 複雜統計查詢：統計每個班級的學生人數和平均年齡（以2024年為基準）
 -- 你的答案：
-
+SELECT c.class_name,COUNT(s.class_id),AVG(2024-YEAR(s.birthday)) FROM Student s JOIN `Class` c ON s.class_id = c.class_id GROUP BY s.class_id;
 
 -- 15. 分組過濾：查詢選修課程數量超過2門的學生姓名和選修課程數
 -- 你的答案：
+DROP VIEW course_count;
+CREATE VIEW course_count AS
+SELECT s.name,COUNT(sc.course_id) from `Student` s JOIN `Student_Course` sc ON sc.student_id = s.student_id GROUP BY s.name;
+SELECT name,`COUNT(sc.course_id)` as number_of_course FROM course_count WHERE `count(sc.course_id)` >= 2;
+
 
 
 -- 16. 存在性查詢：查詢沒有學生選修的課程
 -- 你的答案：
-
+DROP VIEW course_count;
+CREATE VIEW course_count AS
+SELECT sc.course_id as sif,COUNT(sc.course_id) from `Student` s JOIN `Student_Course` sc ON sc.student_id = s.student_id GROUP BY sc.course_id;
+SELECT course_name FROM `Course` WHERE course_id NOT IN (SELECT sif FROM course_count);
 
 -- 17. 複雜條件查詢：查詢同時選修「數學」和「物理」的學生姓名
 -- 你的答案：

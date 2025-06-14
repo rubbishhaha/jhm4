@@ -1,11 +1,11 @@
 import random, time
 a = 0
 b = 0
-for i in range(100):
-    time.sleep(0.1)
+for i in range(1000):
+    time.sleep(0.01)
     if random.choice(['lefu','hkbu']) == 'lefu':
         a += 1
-        print("a: ", a)
+        print("LF: ", a)
     else:
         b += 1
-        print("b: ", b)
+        print("BU: ", b)
