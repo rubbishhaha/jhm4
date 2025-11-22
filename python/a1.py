@@ -13,4 +13,4 @@ for i in range(1000):
         print("BU: ", b)
     else:
         c += 1
-        print("DIHH: ", c)
+        print("DH: ", c)
